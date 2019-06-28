@@ -2,11 +2,11 @@
   "name": "sisterbot",
   "version": "1.0.0",
   "description": "chatbot with nodejs & dialogflow",
-  "main": "index.js",
+  "main": "app.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "node app.js"
   },
-  "author": "",
+  "author": "badikirwan",
   "license": "ISC",
   "dependencies": {
     "express": "^4.17.1",
