@@ -16,22 +16,44 @@ server.post('/webhook', function (req, res) {
 
     if(req.body.queryResult.intent.displayName == "LihatNilaiAkademik") {
         if(req.body.queryResult.intent.displayName == "LihatNilaiAkademik") {
-            if(req.body.queryResult.action == "LihatNilaiAkademik.LihatNilaiAkademik-custom" && req.body.queryResult.parameters.nim != "" 
-                && req.body.queryResult.parameters.semester != "") {
+            if(req.body.queryResult.action == "LihatNilaiAkademik.LihatNilaiAkademik-custom" && req.body.queryResult.parameters.nim != null 
+                && req.body.queryResult.parameters.semester != null) {
                     res.send(JSON.stringify({
                         "fulfillmentText" : "Mohon tunggu sebentar",
                     }));
+
+                    var req = unirest("GET", "https://api.themoviedb.org/3/movie/top_rated");
+                        req.query({
+                            "page": "1",
+                            "language": "en-US",
+                            "api_key": "33a4f2f91284c9133695dfba6bd802da"
+                        });
+
+                        req.send("{}");
+                        req.end(function(res) {
+                            if(res.error) {
+                                response.setHeader('Content-Type', 'application/json');
+                                response.send(JSON.stringify({
+                                    "speech" : "Error. Can you try it again ? ",
+                                    "displayText" : "Error. Can you try it again ? "
+                                }));
+                            } else if(res.body.results.length > 0) {
+                                let result = res.body.results;
+                                let output = '';
+
+                                for(let i = 0; i<result.length;i++) {
+                                    output += result[i].title;
+                                    output+="\n"
+                                }
+                                response.setHeader('Content-Type', 'application/json');
+                                response.send(JSON.stringify({
+                                    "speech" : output,
+                                    "displayText" : output
+                                })); 
+                            }
+                        })
                 }
         }
-
-        // if(req.body.queryResult.intent.displayName == "LihatNilaiAkademik - custom") {
-        //     if(req.body.queryResult.action == "LihatNilaiAkademik.LihatNilaiAkademik-custom" && req.body.queryResult.parameters.nim != "" 
-        //         && req.body.queryResult.parameters.semester != "") {
-        //             res.send(JSON.stringify({
-        //                 "fulfillmentText" : "Mohon tunggu sebentar vv",
-        //             }));
-        //         }
-        // }
     }
 
     // if(req.body.queryResult.intent.displayName == "LihatKalenderAkademik") {
