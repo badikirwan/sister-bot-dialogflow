@@ -10,14 +10,29 @@ let errorResposne = {
 var port = process.env.PORT || 8080;
 // create serve and configure it.
 const server = express();
+
 server.use(bodyParser.json());
 server.post('/webhook', function (req, res) {
-    if(req.body.queryResult.intent.displayName == "LihatNilaiAkademik") {
+
+    if(req.body.queryResult.intent.displayName == "LihatNilaiAkademik" && request.body.queryResult.parameters == "nilai_akademik") {
         res.send(JSON.stringify({
-            "speech" : "Couldn't find any deatails. :(  ",
-            "displayText" : "Couldn't find any deatails. :(  "
+            "fulfillmentText" : "Baik, tolong inputkan NIM dan semester anda \n Contoh : nim 201569040006 semester 7",
         }));
     }
+
+    // if(req.body.queryResult.intent.displayName == "LihatKalenderAkademik") {
+    //     res.send(JSON.stringify({
+    //         "speech" : "Couldn't find any deatails. :(  ",
+    //         "displayText" : "Couldn't find any deatails. :(  "
+    //     }));
+    // }
+
+    // if(req.body.queryResult.intent.displayName == "LihatNilaiAkademik") {
+    //     res.send(JSON.stringify({
+    //         "speech" : "Couldn't find any deatails. :(  ",
+    //         "displayText" : "Couldn't find any deatails. :(  "
+    //     }));
+    // }
 
     // if(request.body.queryResult.parameters['top-rated']) {
     //     var req = unirest("GET", "https://api.themoviedb.org/3/movie/top_rated");
