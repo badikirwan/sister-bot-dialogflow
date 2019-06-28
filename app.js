@@ -34,11 +34,11 @@ server.post('/webhook', function (req, res) {
                             if(response.error) {
                                 response.setHeader('Content-Type', 'application/json');
                                 response.send(JSON.stringify({
-                                    "speech" : "Error. Can you try it again ? ",
-                                    "displayText" : "Error. Can you try it again ? "
+                                    "fulfillmentText" : "Error. Can you try it again ? ",
+                                    "fulfillmentText" : "Error. Can you try it again ? "
                                 }));
                             } else if(response.body.results.length > 0) {
-                                let result = res.body.results;
+                                let result = response.body.results;
                                 let output = '';
 
                                 for(let i = 0; i<result.length;i++) {
@@ -47,8 +47,8 @@ server.post('/webhook', function (req, res) {
                                 }
                                 response.setHeader('Content-Type', 'application/json');
                                 response.send(JSON.stringify({
-                                    "speech" : output,
-                                    "displayText" : output
+                                    "fulfillmentText" : output,
+                                    "fulfillmentText" : output
                                 })); 
                             }
                         })
