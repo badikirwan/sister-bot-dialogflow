@@ -14,10 +14,19 @@ const server = express();
 server.use(bodyParser.json());
 server.post('/webhook', function (req, res) {
 
-    if(req.body.queryResult.intent.displayName == "LihatNilaiAkademik") {
+    if(req.body.queryResult.intent.displayName == "LihatNilaiAkademik" || req.body.queryResult.intent.displayName == "LihatNilaiAkademik - custom") {
         res.send(JSON.stringify({
             "fulfillmentText" : "Baik, tolong inputkan NIM dan semester anda \n Contoh : Nim 201569040006 semester 7",
         }));
+
+        if(req.body.queryResult.intent.displayName == "LihatNilaiAkademik") {
+            if(req.body.queryResult.action == "LihatNilaiAkademik.LihatNilaiAkademik-custom" && req.body.queryResult.parameters.nim != "" 
+                && req.body.queryResult.parameters.semester != "") {
+                    res.send(JSON.stringify({
+                        "fulfillmentText" : "Mohon tunggu sebentar",
+                    }));
+                }
+        }
 
         if(req.body.queryResult.intent.displayName == "LihatNilaiAkademik - custom") {
             if(req.body.queryResult.action == "LihatNilaiAkademik.LihatNilaiAkademik-custom" && req.body.queryResult.parameters.nim != "" 
