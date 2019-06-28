@@ -20,8 +20,8 @@ server.post('/webhook', function (req, res) {
         }));
 
         if(req.body.queryResult.intent.displayName == "LihatNilaiAkademik - custom") {
-            if(req.body.queryResult.parameters.nim != null && req.body.queryResult.parameters.semester != null 
-                && req.body.queryResult.action == "LihatNilaiAkademik.LihatNilaiAkademik-custom") {
+            if(res.body.queryResult.parameters.nim != null && res.body.queryResult.parameters.semester != null 
+                && res.body.queryResult.action == "LihatNilaiAkademik.LihatNilaiAkademik-custom") {
                     res.send(JSON.stringify({
                         "fulfillmentText" : "Mohon tunggu sebentar",
                     }));
