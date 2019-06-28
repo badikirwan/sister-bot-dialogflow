@@ -18,9 +18,9 @@ server.post('/webhook', function (req, res) {
         if(req.body.queryResult.intent.displayName == "LihatNilaiAkademik") {
             if(req.body.queryResult.action == "LihatNilaiAkademik.LihatNilaiAkademik-custom" && req.body.queryResult.parameters.nim != null 
                 && req.body.queryResult.parameters.semester != null) {
-                    res.send(JSON.stringify({
-                        "fulfillmentText" : "Mohon tunggu sebentar",
-                    }));
+                    // res.send(JSON.stringify({
+                    //     "fulfillmentText" : "Mohon tunggu sebentar",
+                    // }));
 
                     var req = unirest("GET", "https://api.themoviedb.org/3/movie/top_rated");
                         req.query({
