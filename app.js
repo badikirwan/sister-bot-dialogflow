@@ -12,7 +12,7 @@ var port = process.env.PORT || 8080;
 const server = express();
 server.use(bodyParser.json());
 server.post('/webhook', function (req, res) {
-    if(req.body.intent.displayName == "LihatNilaiAkademik") {
+    if(req.body.queryResult.intent.displayName == "LihatNilaiAkademik") {
         res.send(JSON.stringify({
             "speech" : "Couldn't find any deatails. :(  ",
             "displayText" : "Couldn't find any deatails. :(  "
