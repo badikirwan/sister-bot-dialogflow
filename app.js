@@ -16,7 +16,7 @@ server.post('/webhook', function (req, res) {
 
     if(req.body.queryResult.intent.displayName == "LihatNilaiAkademik" && request.body.queryResult.parameters == "nilai_akademik") {
         res.send(JSON.stringify({
-            "fulfillmentText" : "Baik, tolong inputkan NIM dan semester anda \n Contoh : nim 201569040006 semester 7",
+            "fulfillmentText" : "Baik, tolong inputkan NIM dan semester anda \n Contoh : Nim 201569040006 semester 7",
         }));
     }
 
