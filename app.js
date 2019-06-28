@@ -22,22 +22,22 @@ server.post('/webhook', function (req, res) {
                     //     "fulfillmentText" : "Mohon tunggu sebentar",
                     // }));
 
-                    var req = unirest("GET", "https://api.themoviedb.org/3/movie/top_rated");
-                        req.query({
+                    var request = unirest("GET", "https://api.themoviedb.org/3/movie/top_rated");
+                        request.query({
                             "page": "1",
                             "language": "en-US",
                             "api_key": "33a4f2f91284c9133695dfba6bd802da"
                         });
 
-                        req.send("{}");
-                        req.end(function(res) {
-                            if(res.error) {
+                        request.send("{}");
+                        request.end(function(response) {
+                            if(response.error) {
                                 response.setHeader('Content-Type', 'application/json');
                                 response.send(JSON.stringify({
                                     "speech" : "Error. Can you try it again ? ",
                                     "displayText" : "Error. Can you try it again ? "
                                 }));
-                            } else if(res.body.results.length > 0) {
+                            } else if(response.body.results.length > 0) {
                                 let result = res.body.results;
                                 let output = '';
 
