@@ -16,11 +16,9 @@ server.post('/webhook', function (req, res) {
     if(req.body.queryResult.intent.displayName == "LihatNilaiAkademik") {
         if(req.body.queryResult.action == "LihatNilaiAkademik.LihatNilaiAkademik-custom" && req.body.queryResult.parameters.nim != null 
             && req.body.queryResult.parameters.semester != null) {
-                var request = unirest("GET", "https://api.themoviedb.org/3/movie/top_rated");
+                var request = unirest("GET", "https://sister.yudharta.ac.id/rest/mahasiswa/index");
                     request.query({
-                        "page": "1",
-                        "language": "en-US",
-                        "api_key": "33a4f2f91284c9133695dfba6bd802da"
+                        "mhs_nim": "201569040006",
                     });
                     request.send("{}");
                     request.end(function(response) {
@@ -54,14 +52,16 @@ server.post('/webhook', function (req, res) {
             }));                
         }
 
-    } else if(req.body.queryResult.intent.displayName == ""){
+    } else if(req.body.queryResult.intent.displayName == "KartuUjian"){
 
     }
 
 });
 
-function sendMessage() {
-
+function sendMessage(messageText) {
+    res.send(JSON.stringify({
+        "fulfillmentText" : messageText
+    }));
 }
 
 function callAPI() {
