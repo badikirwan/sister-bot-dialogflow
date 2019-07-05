@@ -17,10 +17,12 @@ server.post('/webhook', function (req, res) {
         if(req.body.queryResult.action == "LihatNilaiAkademik.LihatNilaiAkademik-custom" && req.body.queryResult.parameters.nim != null 
             && req.body.queryResult.parameters.semester != null) {
                 var request = unirest("GET", "https://sister.yudharta.ac.id/rest/mahasiswa/index");
+                    request.headers({
+                        "SISTER_API_KEY": "1DB01956C3FDE2B6FB39AA275E22F1B2",
+                    });
                     request.query({
                         "mhs_nim": "201569040006",
                     });
-                    request.setHeader('SISTER_API_KEY', '1DB01956C3FDE2B6FB39AA275E22F1B2');
                     request.send("{}");
                     request.end(function(response) {
                         res.send(JSON.stringify({
