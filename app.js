@@ -25,28 +25,18 @@ server.post('/webhook', function (req, res) {
                     });
                     request.send("{}");
                     request.end(function(response) {
-                        res.send(JSON.stringify({
-                            "fulfillmentText" : response
-                        }));
-                        // if(response.error) {
-                        //     res.setHeader('Content-Type', 'application/json');
-                        //     res.send(JSON.stringify({
-                        //         "fulfillmentText" : "Error. Can you try it again ? ",
-                        //         "fulfillmentText" : "Error. Can you try it again ? "
-                        //     }));
-                        // } else if(response.body.results.length > 0) {
-                        //     let result = response.body.results;
-                        //     let output = '';
-                        //     for(let i = 0; i<result.length;i++) {
-                        //         output += result[i].title;
-                        //         output+="\n"
-                        //     }
-                        //     res.setHeader('Content-Type', 'application/json');
-                        //     res.send(JSON.stringify({
-                        //         "fulfillmentText" : output,
-                        //         "fulfillmentText" : output
-                        //     })); 
-                        // }
+                        if(response.error) {
+                            res.setHeader('Content-Type', 'application/json');
+                            res.send(JSON.stringify({
+                                "fulfillmentText" : "Error. Can you try it again ? ",
+                            }));
+                        } else {
+                            let result = response.body;
+                            res.setHeader('Content-Type', 'application/json');
+                            res.send(JSON.stringify({
+                                "fulfillmentText" : result.nama_lengkap + "\n" + result.tahun_angkatan,
+                            })); 
+                        }
                     });
                 
             }
