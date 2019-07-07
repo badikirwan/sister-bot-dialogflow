@@ -16,12 +16,10 @@ server.post('/webhook', function (req, res) {
     if(req.body.queryResult.intent.displayName == "LihatNilaiAkademik") {
         if(req.body.queryResult.action == "LihatNilaiAkademik.LihatNilaiAkademik-custom" && req.body.queryResult.parameters.nim != null 
             && req.body.queryResult.parameters.semester != null) {
-                var request = unirest("GET", "https://sister.yudharta.ac.id/rest/mahasiswa/index");
-                    request.headers({
-                        "SISTER_API_KEY": "1DB01956C3FDE2B6FB39AA275E22F1B2",
-                    });
+                var request = unirest("GET", "http://rest.badikirwan.com/nilai_akademik/index");
                     request.query({
-                        "mhs_nim": "201569040006",
+                        "mhs_nim": req.body.queryResult.parameters.nim,
+                        "mhs_semester": req.body.queryResult.parameters.semester
                     });
                     request.send("{}");
                     request.end(function(response) {
@@ -34,7 +32,7 @@ server.post('/webhook', function (req, res) {
                             let result = response.body;
                             res.setHeader('Content-Type', 'application/json');
                             res.send(JSON.stringify({
-                                "fulfillmentText" : result.nama_lengkap + "\n" + result.tahun_angkatan,
+                                "fulfillmentText" : "Nilai akademik anda" + result.ipk,
                             })); 
                         }
                     });
