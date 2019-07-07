@@ -32,7 +32,7 @@ server.post('/webhook', function (req, res) {
                             let result = response.body;
                             res.setHeader('Content-Type', 'application/json');
                             res.send(JSON.stringify({
-                                "fulfillmentText" : "Nilai akademik anda" + "\n" + result.ipk,
+                                "fulfillmentText" : "Nilai akademik anda " + result.ipk,
                             })); 
                         }
                     });
