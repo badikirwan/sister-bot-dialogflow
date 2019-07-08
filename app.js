@@ -58,8 +58,8 @@ server.post('/webhook', function (req, res) {
                                 output += result[i].kegiatan;
                                 output+="\n"
                             }
-                            response.setHeader('Content-Type', 'application/json');
-                            response.send(JSON.stringify({
+                            res.setHeader('Content-Type', 'application/json');
+                            res.send(JSON.stringify({
                                 "fulfillmentText" : output,
                                 "fulfillmentText" : output
                             })); 
