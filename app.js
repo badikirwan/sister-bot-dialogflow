@@ -51,8 +51,8 @@ server.post('/webhook', function (req, res) {
                             res.send(JSON.stringify({
                                 "fulfillmentText" : "Error. Can you try it again ? ",
                             }));
-                        } else if(res.body.length > 0) {
-                            let result = res.body;
+                        } else if(res.body.results.length > 0) {
+                            let result = res.body.results;
                             let output = '';
                             for(let i = 0; i<result.length;i++) {
                                 output += result[i].kegiatan;
