@@ -55,13 +55,12 @@ server.post('/webhook', function (req, res) {
                             let result = response.body.results;
                             let output = '';
                             for(let i = 0; i<result.length;i++) {
-                                output += result[i].kegiatan;
+                                output += i + result[i].kegiatan;
                                 output+="\n"
                             }
                             res.setHeader('Content-Type', 'application/json');
                             res.send(JSON.stringify({
                                 "fulfillmentText" : output,
-                                "fulfillmentText" : output
                             })); 
                         }
                     });              
