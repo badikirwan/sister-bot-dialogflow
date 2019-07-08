@@ -55,7 +55,7 @@ server.post('/webhook', function (req, res) {
                             let result = response.body.results;
                             let output = '';
                             for(let i = 0; i<result.length;i++) {
-                                output += i+1 +". "+ result[i].kegiatan + "tanggal " + result[i].tanggal;
+                                output += i+1 +". "+ result[i].kegiatan + " tanggal " + result[i].tanggal;
                                 output+="\n"
                             }
                             res.setHeader('Content-Type', 'application/json');
