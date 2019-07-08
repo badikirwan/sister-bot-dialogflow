@@ -40,10 +40,31 @@ server.post('/webhook', function (req, res) {
             }
     } else if(req.body.queryResult.intent.displayName == "LihatKalenderAkademik") {
         if(req.body.queryResult.action == "LihatKalenderAkademik" && req.body.queryResult.parameters.tahun != null) {
-            res.send(JSON.stringify({
-                "speech" : "Error. Can you try it tahun ? ",
-                "displayText" : "Error. Can you try it tahun ? "
-            }));                
+            var request = unirest("GET", "http://rest.badikirwan.com/kalender_akademik/index");
+                    request.query({
+                        "tahun_ajaran": req.body.queryResult.parameters.tahun
+                    });
+                    request.send("{}");
+                    request.end(function(response) {
+                        if(response.error) {
+                            res.setHeader('Content-Type', 'application/json');
+                            res.send(JSON.stringify({
+                                "fulfillmentText" : "Error. Can you try it again ? ",
+                            }));
+                        } else if(res.body.length > 0) {
+                            let result = res.body;
+                            let output = '';
+                            for(let i = 0; i<result.length;i++) {
+                                output += result[i].kegiatan;
+                                output+="\n"
+                            }
+                            response.setHeader('Content-Type', 'application/json');
+                            response.send(JSON.stringify({
+                                "fulfillmentText" : output,
+                                "fulfillmentText" : output
+                            })); 
+                        }
+                    });              
         }
 
     } else if(req.body.queryResult.intent.displayName == "KartuUjian"){
