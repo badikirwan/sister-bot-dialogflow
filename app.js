@@ -66,12 +66,12 @@ server.post('/webhook', function (req, res) {
                         let result = response.body.data;
                         let output = '';
                         for(let i = 0; i<result.length;i++) {
-                            output += result;
+                            output += result[i];
                             output+="\n"
                         }
                         res.setHeader('Content-Type', 'application/json');
                         res.send(JSON.stringify({
-                            "fulfillmentText" : result,
+                            "fulfillmentText" : output,
                         })); 
                     }
                 });              
