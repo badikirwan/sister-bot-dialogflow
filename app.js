@@ -56,14 +56,14 @@ server.post('/webhook', function (req, res) {
                         }));
                     } else if(response.body.data.length > 0) {
                         let result = response.body.data;
-                        let output = '';
-                        for(let i = 0; i<result.length;i++) {
-                            output += result;
-                            output+="\n"
-                        }
+                        // let output = '';
+                        // for(let i = 0; i<result.length;i++) {
+                        //     output += result;
+                        //     output+="\n"
+                        // }
                         res.setHeader('Content-Type', 'application/json');
                         res.send(JSON.stringify({
-                            "fulfillmentText" : output,
+                            "fulfillmentText" : result,
                         })); 
                     }
                 });              
