@@ -16,10 +16,13 @@ server.post('/webhook', function (req, res) {
     if(req.body.queryResult.intent.displayName == "LihatNilaiAkademik") {
         if(req.body.queryResult.action == "LihatNilaiAkademik.LihatNilaiAkademik-custom" && req.body.queryResult.parameters.nim != null 
             && req.body.queryResult.parameters.semester != null) {
-                var request = unirest("GET", "http://rest.badikirwan.com/nilai_akademik/index");
+                var request = unirest("GET", " https://sister.yudharta.ac.id/rest/hasil_studi/nilai");
+                    request.headers({
+                        "SISTER_API_KEY": "1DB01956C3FDE2B6FB39AA275E22F1B2"
+                    });
                     request.query({
-                        "mhs_nim": req.body.queryResult.parameters.nim,
-                        "mhs_semester": req.body.queryResult.parameters.semester
+                        "nim": req.body.queryResult.parameters.nim,
+                        "smt": req.body.queryResult.parameters.semester
                     });
                     request.send("{}");
                     request.end(function(response) {
@@ -28,11 +31,16 @@ server.post('/webhook', function (req, res) {
                             res.send(JSON.stringify({
                                 "fulfillmentText" : "Error. Can you try it again ? ",
                             }));
-                        } else {
-                            let result = response.body;
+                        } else if(response.body.data.length > 0) {
+                            let result = response.body.data;
+                            let output = '';
+                            for(let i = 0; i<result.length;i++) {
+                                output += i+1 +"." + result[i].mk_nama + result[i].nilai_huruf;
+                                output+="\n"
+                            }
                             res.setHeader('Content-Type', 'application/json');
                             res.send(JSON.stringify({
-                                "fulfillmentText" : "Nilai akademik anda " + result.ipk,
+                                "fulfillmentText" : result,
                             })); 
                         }
                     });
