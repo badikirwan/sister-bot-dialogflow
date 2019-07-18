@@ -40,7 +40,7 @@ server.post('/webhook', function (req, res) {
                             }
                             res.setHeader('Content-Type', 'application/json');
                             res.send(JSON.stringify({
-                                "fulfillmentText" : result,
+                                "fulfillmentText" : output,
                             })); 
                         }
                     });
