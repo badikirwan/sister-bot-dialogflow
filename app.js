@@ -29,7 +29,7 @@ server.post('/webhook', function (req, res) {
                         if(response.error) {
                             res.setHeader('Content-Type', 'application/json');
                             res.send(JSON.stringify({
-                                "fulfillmentText" : "Error. Can you try it again ? ",
+                                "fulfillmentText" : "Maaf ",
                             }));
                         } else if(response.body.data.length > 0) {
                             let result = response.body.data;
@@ -71,7 +71,7 @@ server.post('/webhook', function (req, res) {
                         // }
                         res.setHeader('Content-Type', 'application/json');
                         res.send(JSON.stringify({
-                            "fulfillmentText" : result,
+                            "fulfillmentText" : response.body.data.length,
                         })); 
                     }
                 });              
