@@ -66,7 +66,7 @@ server.post('/webhook', function (req, res) {
                         let result = response.body.data;
                         let output = '';
                         for(let i = 0; i<result.length;i++) {
-                            output += result[i];
+                            output += i+1 + ". " + result[i];
                             output+="\n"
                         }
                         res.setHeader('Content-Type', 'application/json');
