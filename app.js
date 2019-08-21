@@ -1,3 +1,16 @@
+// dependencies
+'use strict';
+const express = require('express');
+const bodyParser = require('body-parser');
+const http = require('https');
+var unirest = require("unirest");
+let errorResposne = {
+    results: []
+};
+var port = process.env.PORT || 8080;
+// create serve and configure it.
+const server = express();
+
 server.use(bodyParser.json());
 server.post('/webhook', function (req, res) {
     if(req.body.queryResult.intent.displayName == "LihatNilaiAkademik") {
@@ -5,7 +18,7 @@ server.post('/webhook', function (req, res) {
             && req.body.queryResult.parameters.semester != null) {
                 var request = unirest("GET", " https://sister.yudharta.ac.id/rest/hasil_studi/nilai");
                     request.headers({
-                        "SISTER_API_KEY": ""
+                        "SISTER_API_KEY": "1DB01956C3FDE2B6FB39AA275E22F1B2"
                     });
                     request.query({
                         "nim": req.body.queryResult.parameters.nim,
@@ -16,7 +29,7 @@ server.post('/webhook', function (req, res) {
                         if(response.error) {
                             res.setHeader('Content-Type', 'application/json');
                             res.send(JSON.stringify({
-                                "fulfillmentText" : "Kesalahan. Bisakah Anda mencobanya lagi? ",
+                                "fulfillmentText" : "Maaf ",
                             }));
                         } else if(response.body.data.length > 0) {
                             let result = response.body.data;
@@ -37,7 +50,7 @@ server.post('/webhook', function (req, res) {
         if(req.body.queryResult.action == "LihatKalenderAkademik" && req.body.queryResult.parameters.tahun != null) {
             var request = unirest("GET", "https://sister.yudharta.ac.id/rest/kalender/index");
                 request.headers({
-                    "SISTER_API_KEY": ""
+                    "SISTER_API_KEY": "1DB01956C3FDE2B6FB39AA275E22F1B2"
                 });
                 request.query({
                     "id_smtr": req.body.queryResult.parameters.tahun
@@ -47,7 +60,7 @@ server.post('/webhook', function (req, res) {
                     if(response.error) {
                         res.setHeader('Content-Type', 'application/json');
                         res.send(JSON.stringify({
-                            "fulfillmentText" : "Kesalahan. Bisakah Anda mencobanya lagi?",
+                            "fulfillmentText" : "Error. Can you try it again ? ",
                         }));
                     } else if(response.body.data.length > 0) {
                         let result = response.body.data;
@@ -64,4 +77,18 @@ server.post('/webhook', function (req, res) {
                 });              
         }
     } 
+});
+
+function sendMessage(messageText) {
+    res.send(JSON.stringify({
+        "fulfillmentText" : messageText
+    }));
+}
+
+function callAPI() {
+
+}
+
+server.listen(port, function () {
+    console.log("Server is up and running...");
 });
