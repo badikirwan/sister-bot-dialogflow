@@ -18,7 +18,7 @@ server.post('/webhook', function (req, res) {
             && req.body.queryResult.parameters.semester != null) {
                 var request = unirest("GET", " https://sister.yudharta.ac.id/rest/hasil_studi/nilai");
                     request.headers({
-                        "SISTER_API_KEY": "1DB01956C3FDE2B6FB39AA275E22F1B2"
+                        "SISTER_API_KEY": ""
                     });
                     request.query({
                         "nim": req.body.queryResult.parameters.nim,
@@ -50,7 +50,7 @@ server.post('/webhook', function (req, res) {
         if(req.body.queryResult.action == "LihatKalenderAkademik" && req.body.queryResult.parameters.tahun != null) {
             var request = unirest("GET", "https://sister.yudharta.ac.id/rest/kalender/index");
                 request.headers({
-                    "SISTER_API_KEY": "1DB01956C3FDE2B6FB39AA275E22F1B2"
+                    "SISTER_API_KEY": ""
                 });
                 request.query({
                     "id_smtr": req.body.queryResult.parameters.tahun
