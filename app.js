@@ -79,16 +79,6 @@ server.post('/webhook', function (req, res) {
     } 
 });
 
-function sendMessage(messageText) {
-    res.send(JSON.stringify({
-        "fulfillmentText" : messageText
-    }));
-}
-
-function callAPI() {
-
-}
-
 server.listen(port, function () {
     console.log("Server is up and running...");
 });
