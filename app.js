@@ -18,7 +18,7 @@ server.post('/webhook', function (req, res) {
             && req.body.queryResult.parameters.semester != null) {
                 var request = unirest("GET", " https://sister.yudharta.ac.id/rest/hasil_studi/nilai");
                     request.headers({
-                        "SISTER_API_KEY": "1DB01956C3FDE2B6FB39AA275E22F1B2"
+                        "SISTER_API_KEY": "1DB01956C3FDE2B6FB39AA275E22F1"
                     });
                     request.query({
                         "nim": req.body.queryResult.parameters.nim,
@@ -78,16 +78,6 @@ server.post('/webhook', function (req, res) {
         }
     } 
 });
-
-function sendMessage(messageText) {
-    res.send(JSON.stringify({
-        "fulfillmentText" : messageText
-    }));
-}
-
-function callAPI() {
-
-}
 
 server.listen(port, function () {
     console.log("Server is up and running...");
